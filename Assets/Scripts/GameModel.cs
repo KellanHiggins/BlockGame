@@ -7,6 +7,8 @@ public class GameModel : MonoBehaviour
 	public int PlayAreaWidth;
 	public int PlayAreaHeight;
 
+	public int CreationSpread;
+
 	public PlayAreaEdges PlayAreaEdges;
 
 
@@ -43,31 +45,31 @@ public class GameModel : MonoBehaviour
 
 	void Update()
 	{
-		for(int x = 0; x < PlayAreaWidth; x++)
-		{
-			for(int y = 0; y < PlayAreaHeight; y++)
-			{
-				if(CurrentActiveBrick == BrickArray[x,y])
-				{
-					CurrentActiveBrick.gameObject.renderer.material.color = Color.red;
-				}
-				else
-				{
-					if(BrickArray[x,y] != null)
-					{
-						BrickArray[x,y].gameObject.renderer.material.color = Color.gray;
-					}
-				}
-			}
-		}
+//		for(int x = 0; x < PlayAreaWidth; x++)
+//		{
+//			for(int y = 0; y < PlayAreaHeight; y++)
+//			{
+//				if(CurrentActiveBrick == BrickArray[x,y])
+//				{
+//					CurrentActiveBrick.gameObject.renderer.material.color = Color.red;
+//				}
+//				else
+//				{
+//					if(BrickArray[x,y] != null)
+//					{
+//						BrickArray[x,y].gameObject.renderer.material.color = Color.gray;
+//					}
+//				}
+//			}
+//		}
 	}
 
 	public bool AddNewPlayBrick ()
 	{
 		Vector2 playAreaCenter = new Vector2(PlayAreaWidth/2, PlayAreaHeight/2);
 
-		float x = (float)Random.Range(-2, 2);
-		float y = (float)Random.Range(-2, 2);
+		float x = (float)Random.Range(-CreationSpread, CreationSpread);
+		float y = (float)Random.Range(-CreationSpread, CreationSpread);
 
 		if(AddBrick(new Vector2(playAreaCenter.x + x, playAreaCenter.y + y)))
 		{

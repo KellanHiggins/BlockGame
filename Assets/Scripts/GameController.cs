@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour {
 		// Checks keyboard input
 		MoveNewBricks();
 		MovePlacedBricks();
+		//MovePlacedBricksWithCreation();
 
 	}
 
@@ -49,7 +50,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	void MovePlacedBricks ()
+	void MovePlacedBricks()
 	{
 		if(Input.GetKeyDown(KeyCode.W) == true)
 		{
@@ -64,6 +65,26 @@ public class GameController : MonoBehaviour {
 			Processors.GetComponent<MoveSidesProcessor>().Move(GameModel.BrickArray, MoveDirection.Left);
 		}
 		if(Input.GetKeyDown(KeyCode.D) == true)
+		{
+			Processors.GetComponent<MoveSidesProcessor>().Move(GameModel.BrickArray, MoveDirection.Right);
+		}
+	}
+
+	void MovePlacedBricksWithCreation()
+	{
+		if(Input.GetKeyDown(KeyCode.UpArrow) == true)
+		{
+			Processors.GetComponent<MoveSidesProcessor>().Move(GameModel.BrickArray, MoveDirection.Up);
+		}
+		if(Input.GetKeyDown(KeyCode.DownArrow) == true)
+		{
+			Processors.GetComponent<MoveSidesProcessor>().Move(GameModel.BrickArray, MoveDirection.Down);
+		}
+		if(Input.GetKeyDown(KeyCode.LeftArrow) == true)
+		{
+			Processors.GetComponent<MoveSidesProcessor>().Move(GameModel.BrickArray, MoveDirection.Left);
+		}
+		if(Input.GetKeyDown(KeyCode.RightArrow) == true)
 		{
 			Processors.GetComponent<MoveSidesProcessor>().Move(GameModel.BrickArray, MoveDirection.Right);
 		}

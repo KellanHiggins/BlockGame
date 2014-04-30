@@ -71,42 +71,6 @@ public class MoveSidesProcessor : MonoBehaviour
 		int startY = 0;
 		bool movingUpAndDown = false;
 
-
-
-//		switch(moveDir)
-//		{
-//		case MoveDirection.Up:
-//			startX = 0;
-//			startY = brickArrayHeight - 1;
-//			xModifier = 1;
-//			yModifier = -1;
-//			movingUpAndDown = true;
-//			break;
-//		case MoveDirection.Down:
-//			startX = 0;
-//			startY = 0;
-//			xModifier = 1;
-//			yModifier = 1;
-//			movingUpAndDown = true;
-//			break;
-//		case MoveDirection.Right:
-//			startX = brickArrayWidth - 1;
-//			startY = 0;
-//			xModifier = -1;
-//			yModifier = 1;
-//			movingUpAndDown = false;
-//			break;
-//		case MoveDirection.Left:
-//			startX = 0;
-//			startY = 0;
-//			xModifier = 1;
-//			yModifier = 1;
-//			movingUpAndDown = false;
-//			break;
-//		default:
-//			break;
-//		}
-
 		newX = startX;
 		newY = startY;
 
@@ -130,17 +94,10 @@ public class MoveSidesProcessor : MonoBehaviour
 						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
 						if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
 						{
-							// WE NEED TO STOP THIS COLUMN FROM MOVING HERE NOW.
 						}
 						else if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
 						{
 							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
-//							brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
-//							brickArray[newX, newY] = brickArray[x,y].gameObject;
-//							brickArray[x,y] = null;
-//							Debug.Log(brickArray[x, y]);
-//							Debug.Log(brickArray[newX, newY].gameObject.ToString());
-							Debug.Log("New X is: " + newX + ", New Y is: " + newY);
 						}
 
 						newY -= 1;
@@ -173,10 +130,6 @@ public class MoveSidesProcessor : MonoBehaviour
 						else if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
 						{
 							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
-//							brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
-//							brickArray[newX, newY] = brickArray[x,y].gameObject;
-//							brickArray[x,y] = null;
-							Debug.Log("New X is: " + newX + ", New Y is: " + newY);
 						}
 						
 						newY += 1;
@@ -209,10 +162,6 @@ public class MoveSidesProcessor : MonoBehaviour
 						else if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
 						{
 							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
-//							brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
-//							brickArray[newX, newY] = brickArray[x,y].gameObject;
-//							brickArray[x,y] = null;
-							Debug.Log("New X is: " + newX + ", New Y is: " + newY);
 						}
 						
 						newX += 1;
@@ -243,9 +192,9 @@ public class MoveSidesProcessor : MonoBehaviour
 							
 						}
 						else if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
-					{
+						{
 							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
-							Debug.Log("New X is: " + newX + ", New Y is: " + newY);
+
 						}
 						
 						newX -= 1;

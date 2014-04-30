@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\GameView.cs" />
      <Compile Include="Assets\Scripts\MoveDirection.cs" />
      <Compile Include="Assets\Scripts\PlayAreaEdges.cs" />
+     <Compile Include="Assets\Scripts\Shade.cs" />
      <Compile Include="Assets\Scripts\Sides.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
