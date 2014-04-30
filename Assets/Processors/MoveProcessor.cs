@@ -21,7 +21,7 @@ public class MoveProcessor : MonoBehaviour
 		{
 			BrickComponent brickComponent = brick.GetComponent<BrickComponent>();
 			brickComponent.Location.x = brickComponent.Location.x + directionChecker.CheckRight(brick, gameModel.BrickArray);
-			UpdateActualLocation(brickComponent.gameObject);
+			//UpdateActualLocation(brickComponent.gameObject);
 			if(updateSide == true)
 			{
 				brickComponent.Side = Sides.Right;
@@ -39,7 +39,7 @@ public class MoveProcessor : MonoBehaviour
 		{
 			BrickComponent brickComponent = brick.GetComponent<BrickComponent>();
 			brickComponent.Location.x = brickComponent.Location.x - directionChecker.CheckLeft(brick, gameModel.BrickArray);
-			UpdateActualLocation(brickComponent.gameObject);
+			//UpdateActualLocation(brickComponent.gameObject);
 			if(updateSide == true)
 			{
 				brickComponent.Side = Sides.Left;
@@ -57,7 +57,7 @@ public class MoveProcessor : MonoBehaviour
 		{
 			BrickComponent brickComponent = brick.GetComponent<BrickComponent>();
 			brickComponent.Location.y = brickComponent.Location.y + directionChecker.CheckUp(brick, gameModel.BrickArray);
-			UpdateActualLocation(brickComponent.gameObject);
+			//UpdateActualLocation(brickComponent.gameObject);
 			if(updateSide == true)
 			{
 				brickComponent.Side = Sides.Top;
@@ -75,7 +75,7 @@ public class MoveProcessor : MonoBehaviour
 		{
 			BrickComponent brickComponent = brick.GetComponent<BrickComponent>();
 			brickComponent.Location.y = brickComponent.Location.y - directionChecker.CheckDown(brick, gameModel.BrickArray);
-			UpdateActualLocation(brickComponent.gameObject);
+			//UpdateActualLocation(brickComponent.gameObject);
 			if(updateSide == true)
 			{
 				brickComponent.Side = Sides.Bottom;
@@ -88,16 +88,23 @@ public class MoveProcessor : MonoBehaviour
 	}
 
 
-	private bool UpdateActualLocation(GameObject brick)
+
+
+	private IEnumerator SlideBlockSmoothly(BrickComponent brickComponent)
 	{
-		// TODO:  We will be adding in movement here
-		BrickComponent brickLocation = brick.GetComponent<BrickComponent>();
-		if(brickLocation.Location.x != (int)brick.gameObject.transform.position.x || brickLocation.Location.y != (int)brick.gameObject.transform.position.y)
+		Vector3 startPos = brickComponent.gameObject.transform.position;
+		Vector3 endPos = new Vector3(brickComponent.Location.x, brickComponent.Location.y);
+
+		Debug.Log("Is this firing");
+		for(float f = 0f; f <= 1f; f += 0.25f )
 		{
-			brick.transform.position = new Vector3(brickLocation.Location.x, brickLocation.Location.y);
-			return true;
+			Debug.Log(f);
+			//Debug.Log(f);
+//			Debug.Log("The transform location" + brick.transform.position);
+//			Debug.Log("The new position" + new Vector3(brickComponent.Location.x, brickComponent.Location.y));
+			brickComponent.gameObject.transform.position = Vector3.Lerp(startPos, endPos, f);
+			yield return 0;
 		}
-		return false;
 	}
 
 
@@ -105,20 +112,50 @@ public class MoveProcessor : MonoBehaviour
 	{
 		GameObject[,] newBrickArray = new GameObject[gameModel.PlayAreaWidth, gameModel.PlayAreaHeight];
 
-		BrickComponent[] bricks = GetAllBricks();
-		foreach(var brick in bricks)
+		BrickComponent[] brickComponents = GetAllBricks();
+		foreach(var brickComponent in brickComponents)
 		{
-			newBrickArray[(int)brick.Location.x, (int)brick.Location.y] = brick.gameObject;
-			brick.transform.position = new Vector3((float)brick.Location.x, (float)brick.Location.y);
+			newBrickArray[(int)brickComponent.Location.x, (int)brickComponent.Location.y] = brickComponent.gameObject;
+			//brickComponent.transform.position = new Vector3((float)brickComponent.Location.x, (float)brickComponent.Location.y);
+			//StartCoroutine(SlideBlockSmoothly(brickComponent));
 		}
 		gameModel.BrickArray = newBrickArray;
 		return true;
 
 	}
 
+	private bool UpdateActualLocation(GameObject brick)
+	{
+		// TODO:  We will be adding in movement here
+		BrickComponent brickComponent = brick.GetComponent<BrickComponent>();
+		if(brickComponent.Location.x != (int)brick.gameObject.transform.position.x || brickComponent.Location.y != (int)brick.gameObject.transform.position.y)
+		{
+			//StartCoroutine(SlideBlockSmoothly(brickComponent));
+			//brick.transform.position = new Vector3(brickComponent.Location.x, brickComponent.Location.y);
+			return true;
+		}
+		return false;
+	}
+
+
 	public BrickComponent[] GetAllBricks()
 	{
 		BrickComponent[] obj = FindObjectsOfType<BrickComponent>();
 		return obj;
 	}
+
+//	public List<BrickComponent> GetAllBricksList()
+//	{
+//		for(int x = 0; x < gameModel.BrickArray.GetUpperBound(0); x++)
+//		{
+//			for(int y = 0; y < gameModel.BrickArray.GetUpperBound(1); y++)
+//			{
+//				
+//			}
+//		}
+//		
+//		
+//		//BrickComponent[] obj = FindObjectsOfType<BrickComponent>();
+//		return null;
+//	}
 }
