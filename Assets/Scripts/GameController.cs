@@ -13,42 +13,18 @@ public class GameController : MonoBehaviour {
 		Processors = GameObject.Find("Processors");
 	}
 
-
-	
 	void Update () 
 	{
-		if(Input.GetKey(KeyCode.F) == true)
-		{
-			GameModel.AddNewPlayBrick();
-		}
+//		if(Input.GetKey(KeyCode.F) == true)
+//		{
+//			GameModel.AddNewPlayBrick();
+//		}
 
-
+		// Checks keyboard input
 		MoveNewBricks();
 		MovePlacedBricks();
 
 	}
-
-	// Probs redundant
-//	private MoveDirection GetDirection(MoveDirection moveDir)
-//	{
-//		switch(moveDir){
-//		case MoveDirection.Up:
-//			return MoveDirection.Up;
-//			break;
-//		case MoveDirection.Down:
-//			return MoveDirection.Down;
-//			break;
-//		case MoveDirection.Left:
-//			return MoveDirection.Left;
-//			break;
-//		case MoveDirection.Right:
-//			return MoveDirection.Right;
-//			break;
-//		default:
-//			return MoveDirection.None;
-//			break;
-//		}
-//	}
 
 	private void MoveNewBricks ()
 	{

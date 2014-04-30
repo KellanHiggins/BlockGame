@@ -143,26 +143,6 @@ public class GameModel : MonoBehaviour
 		return true;
 	}
 
-	public bool MovePlacedBrick(MoveDirection moveDir)
-	{
-		Sides side = Sides.Left;
-		
-		// Processors needed for this action
-		MoveSidesProcessor moveSideProcessor =  Processors.GetComponent<MoveSidesProcessor>();
-		List<BrickComponent> brickComponents = moveSideProcessor.FindAllSideObjects(side);
-
-//		if(moveDir == MoveDirection.Down)
-//		{
-//			brickComponents.Reverse();
-//		}
-
-		foreach(var brickComponent in brickComponents)
-		{
-			MoveBrickUpMax(brickComponent.gameObject, BrickArray);
-		}
-		return true;
-	}
-
 	// We need to be able to move a brick all the way up
 	public bool MoveBrick(GameObject brick, MoveDirection moveDir, bool updateBrickSide)
 	{
@@ -184,16 +164,5 @@ public class GameModel : MonoBehaviour
 			return false;
 		}
 		return true;
-	}
-
-	void MoveBrickUpMax (GameObject brick, GameObject[,] brickArray)
-	{
-
-		DirectionChecker directionChecker = Processors.GetComponent<DirectionChecker>();
-
-		if(directionChecker.CheckUp(brick, brickArray) > 0)
-		{
-			MoveBrick(brick, MoveDirection.Up, false);
-		}
 	}
 }

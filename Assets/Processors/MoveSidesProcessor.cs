@@ -59,64 +59,10 @@ public class MoveSidesProcessor : MonoBehaviour
 
 	public void Move(GameObject[,] brickArray, MoveDirection moveDir)
 	{
+		// Settings to figure out which way it is going
+
 		int brickArrayWidth = brickArray.GetUpperBound(0) + 1;
 		int brickArrayHeight = brickArray.GetUpperBound(1) + 1;
-//		int newX = 0; // needs to change depending
-//		int newY = brickArrayHeight - 1; // needs to change depending
-//		
-//		for(int x = 0; x < brickArrayWidth; x++) // the lenght needs to change depending
-//		{
-//			for(int y = brickArrayHeight - 1; y >= 0; y--)
-//			{
-//				if(brickArray[x,y] == null)
-//				{
-//					
-//				}
-//				// Need to add in a check to see which side the brick is on
-//				else if(brickArray[x,y] != null)
-//				{
-//					brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
-//					newY--; // needs to change depending
-//				}
-//				
-//			}
-//			newY = brickArrayHeight - 1; // needs to be reset depending
-//			newX++; // needs to change depending
-//		}
-//		moveProcessor.UpdateBrickArray();
-
-		// UP
-		// Requires to count down from the top to the bottom. x starts at 0 and increases to 9 y starts at 15 counts to 0. 
-		// 
-
-		// DOWN
-		// Requires to count up from the bottom. x starts at 0 and increases to 9 and y starts at 0 and increased to 9
-
-		// Right
-		// Requires to count from the Left to the Right by row instead of column. increase from 0 to 9, y decreases from 15 to 0 (gonna count from top to bottom for no good reason)
-
-		// Left requiest to count from the Right to the left by row. Decrease from 9 to 0, y will decrease from 15 to aught
-
-		// So we need a few variables
-		// We will 
-
-
-		// So in this case we are going to standardize the count, just modify the rotation basically. This is probably going to be very confusing
-		// Actually maybe not. It just depends on where we start counting from, which corner.
-
-//		int startingX = 0; // or 9
-//		int startingY = startingY;
-
-		// set newX depending on which way we are going
-		// Also give direction
-		// 
-
-		// Up is STARTATTOP, go down
-		// DOWN is STARTATBOTTOM, go up
-		// UP AND DOWN always have the same X movement, left to right
-
-		// This is for UP
-
 		int newX;
 		int newY;
 		int xModifier = 0;
@@ -125,46 +71,90 @@ public class MoveSidesProcessor : MonoBehaviour
 		int startY = 0;
 		bool movingUpAndDown = false;
 
-		switch(moveDir)
-		{
-		case MoveDirection.Up:
-			startX = 0;
-			startY = brickArrayHeight - 1;
-			xModifier = 1;
-			yModifier = -1;
-			movingUpAndDown = true;
-			break;
-		case MoveDirection.Down:
-			startX = 0;
-			startY = 0;
-			xModifier = 1;
-			yModifier = 1;
-			movingUpAndDown = true;
-			break;
-		case MoveDirection.Right:
-			startX = brickArrayWidth - 1;
-			startY = 0;
-			xModifier = -1;
-			yModifier = 1;
-			movingUpAndDown = false;
-			break;
-		case MoveDirection.Left:
-			startX = 0;
-			startY = 0;
-			xModifier = 1;
-			yModifier = 1;
-			movingUpAndDown = false;
-			break;
-		default:
-			break;
-		}
+
+
+//		switch(moveDir)
+//		{
+//		case MoveDirection.Up:
+//			startX = 0;
+//			startY = brickArrayHeight - 1;
+//			xModifier = 1;
+//			yModifier = -1;
+//			movingUpAndDown = true;
+//			break;
+//		case MoveDirection.Down:
+//			startX = 0;
+//			startY = 0;
+//			xModifier = 1;
+//			yModifier = 1;
+//			movingUpAndDown = true;
+//			break;
+//		case MoveDirection.Right:
+//			startX = brickArrayWidth - 1;
+//			startY = 0;
+//			xModifier = -1;
+//			yModifier = 1;
+//			movingUpAndDown = false;
+//			break;
+//		case MoveDirection.Left:
+//			startX = 0;
+//			startY = 0;
+//			xModifier = 1;
+//			yModifier = 1;
+//			movingUpAndDown = false;
+//			break;
+//		default:
+//			break;
+//		}
 
 		newX = startX;
 		newY = startY;
 
-		// This for up and down movement
-		if(movingUpAndDown)
+		if(moveDir == MoveDirection.Up)
 		{
+			// This should all be done by column
+
+			newY = brickArrayHeight - 1;
+			newX = 0;
+			// Set up here which sides will be affected
+			for(int x = 0; x < brickArrayWidth; x++)
+			{
+				for(int y = brickArrayHeight - 1; y >= 0; y--)
+				{
+					if(brickArray[x,y] == null || brickArray[x, y] == gameModel.CurrentActiveBrick)
+					{
+						
+					}
+					else if(brickArray[x,y] != null)
+					{
+						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
+						if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
+						{
+							// WE NEED TO STOP THIS COLUMN FROM MOVING HERE NOW.
+						}
+						else if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
+						{
+							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
+//							brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
+//							brickArray[newX, newY] = brickArray[x,y].gameObject;
+//							brickArray[x,y] = null;
+//							Debug.Log(brickArray[x, y]);
+//							Debug.Log(brickArray[newX, newY].gameObject.ToString());
+							Debug.Log("New X is: " + newX + ", New Y is: " + newY);
+						}
+
+						newY -= 1;
+					}
+				}
+				newY = brickArrayHeight - 1;
+				newX += 1;
+			}
+		}
+		else if(moveDir == MoveDirection.Down)
+		{
+			newY = 0;
+			newX = 0;
+			// Set up here which sides will be affected
 			for(int x = 0; x < brickArrayWidth; x++)
 			{
 				for(int y = 0; y < brickArrayHeight; y++)
@@ -173,23 +163,35 @@ public class MoveSidesProcessor : MonoBehaviour
 					{
 						
 					}
-					// Need to add in a check to see which side the brick is on
 					else if(brickArray[x,y] != null)
 					{
-						brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
-						newY += yModifier;
+						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
+						if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
+						{
+							
+						}
+						else if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
+						{
+							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
+//							brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
+//							brickArray[newX, newY] = brickArray[x,y].gameObject;
+//							brickArray[x,y] = null;
+							Debug.Log("New X is: " + newX + ", New Y is: " + newY);
+						}
+						
+						newY += 1;
 					}
 				}
-				newY = startY;
-				newX += xModifier;
+				newY = 0;
+				newX += 1;
 			}
 		}
-		else if(!movingUpAndDown)
+		else if(moveDir == MoveDirection.Left)
 		{
-			// This is for left and right movement
-
-			// Testing out a left movement
-			for(int y = 0; y < brickArrayHeight; y++)
+			newX = 0;
+			newY = brickArrayHeight - 1;
+			// Set up here which sides will be affected
+			for(int y = brickArrayHeight - 1; y >= 0; y--)
 			{
 				for(int x = 0; x < brickArrayWidth; x++)
 				{
@@ -197,72 +199,62 @@ public class MoveSidesProcessor : MonoBehaviour
 					{
 						
 					}
-					// Need to add in a check to see which side the brick is on
 					else if(brickArray[x,y] != null)
 					{
-						brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
-						newX += xModifier;
+						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
+						if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
+						{
+							
+						}
+						else if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
+						{
+							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
+//							brickArray[x,y].GetComponent<BrickComponent>().Location = new Vector2((float)newX, (float)newY);
+//							brickArray[newX, newY] = brickArray[x,y].gameObject;
+//							brickArray[x,y] = null;
+							Debug.Log("New X is: " + newX + ", New Y is: " + newY);
+						}
+						
+						newX += 1;
 					}
 				}
-				newX = startX;
-				newY += yModifier;
+				newX = 0;
+				newY -= 1;
+			}
+		}
+		else if(moveDir == MoveDirection.Right)
+		{
+			newX = brickArrayWidth - 1;
+			newY = brickArrayHeight - 1;
+			// Set up here which sides will be affected
+			for(int y = brickArrayHeight - 1; y >= 0; y--)
+			{
+				for(int x = brickArrayWidth - 1; x >= 0; x--)
+				{
+					if(brickArray[x,y] == null || brickArray[x, y] == gameModel.CurrentActiveBrick)
+					{
+						
+					}
+					else if(brickArray[x,y] != null)
+					{
+						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
+						if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
+						{
+							
+						}
+						else if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
+					{
+							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
+							Debug.Log("New X is: " + newX + ", New Y is: " + newY);
+						}
+						
+						newX -= 1;
+					}
+				}
+				newX = brickArrayWidth - 1;
+				newY -= 1;
 			}
 		}
 		moveProcessor.UpdateBrickArray();
-	}
-
-
-
-
-
-
-
-
-
-
-	public List<BrickComponent> FindAllSideObjects(Sides side)
-	{
-		List<BrickComponent> sideObjects = new List<BrickComponent>();
-		BrickComponent[] brickComponents = GameObject.FindObjectsOfType<BrickComponent>();
-
-
-		foreach(var brickComponent in brickComponents)
-		{
-			if(brickComponent.Side == side)
-			{
-				sideObjects.Add(brickComponent);
-			}
-		}
-
-		Debug.Log(sideObjects.Count);
-
-		return sideObjects;
-
-//		for(int i = 0; i < releventGameObjects.Count; i++)
-//		{
-//			if(releventGameObjects[i] > releventGameObjects[e
-//
-//		}
-	}
-
-	public BrickComponent[,] FindAllSideObjects(GameObject[,] brickArray, Sides side)
-	{
-		BrickComponent[,] newBrickComponent = new BrickComponent[brickArray.GetUpperBound(0) + 1, brickArray.GetUpperBound(1) + 1];
-		//Debug.Log("X width: " + brickArray.GetUpperBound(0) + "Y width: " + brickArray.GetUpperBound(1));
-		for(int x = 0; x < brickArray.GetUpperBound(0); x++)
-		{
-			for(int y = 0; y < brickArray.GetUpperBound(1); y++)
-			{
-				if(brickArray[x,y] != null)
-				{
-					BrickComponent brickComponent = brickArray[x,y].GetComponent<BrickComponent>();
-					if(brickComponent != null && brickComponent.Side == side)
-					{
-						newBrickComponent[x,y] = brickComponent;
-					}
-				}
-			}
-		}
-		return newBrickComponent;
 	}
 }

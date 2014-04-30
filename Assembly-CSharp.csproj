@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{AA106A64-A5DB-BA56-B869-A91D2C6D37AD}</ProjectGuid>
+	<ProjectGuid>{E55A415A-EA51-02A0-41E6-5A398AAECD7F}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -47,21 +47,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Components\BrickComponent.cs" />
-     <Compile Include="Assets\Interfaces\IBrickComponent.cs" />
      <Compile Include="Assets\Processors\DirectionChecker.cs" />
      <Compile Include="Assets\Processors\MoveProcessor.cs" />
      <Compile Include="Assets\Processors\MoveSidesProcessor.cs" />
-     <Compile Include="Assets\Scripts\Brick.cs" />
-     <Compile Include="Assets\Scripts\CurrentBrick.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameModel.cs" />
      <Compile Include="Assets\Scripts\GameView.cs" />
      <Compile Include="Assets\Scripts\MoveDirection.cs" />
      <Compile Include="Assets\Scripts\PlayAreaEdges.cs" />
      <Compile Include="Assets\Scripts\Sides.cs" />
-     <Compile Include="Assets\Scripts\Util.cs" />
-     <Compile Include="Assets\Scripts\_GameModelOLD.cs" />
-     <Compile Include="Assets\Scripts\_GameModelOLD2.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

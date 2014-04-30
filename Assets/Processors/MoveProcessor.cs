@@ -14,6 +14,7 @@ public class MoveProcessor : MonoBehaviour
 		directionChecker = GameObject.Find("Processors").GetComponent<DirectionChecker>();
 	}
 
+	// TODO: Change this to one method to move in any direction
 	public bool MoveRight(GameObject brick, bool updateSide)
 	{
 		if(directionChecker.CheckRight(brick, gameModel.BrickArray) > 0)
@@ -100,7 +101,7 @@ public class MoveProcessor : MonoBehaviour
 	}
 
 
-	public void UpdateBrickArray()
+	public bool UpdateBrickArray()
 	{
 		GameObject[,] newBrickArray = new GameObject[gameModel.PlayAreaWidth, gameModel.PlayAreaHeight];
 
@@ -111,6 +112,7 @@ public class MoveProcessor : MonoBehaviour
 			brick.transform.position = new Vector3((float)brick.Location.x, (float)brick.Location.y);
 		}
 		gameModel.BrickArray = newBrickArray;
+		return true;
 
 	}
 

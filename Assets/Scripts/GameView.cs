@@ -41,29 +41,29 @@ public class GameView : MonoBehaviour {
 //		}
 	}
 
-	void DrawRectangle (Rect position, Color color)
-	{
-		// We shouldn't draw until we are told to do so.
-		if (Event.current.type != EventType.Repaint)
-			return;
-		
-		// Please assign a material that is using position and color.
-		if (Material == null) {
-			Debug.LogError ("You have forgot to set a material.");
-			return;
-		}
-		
-		Material.SetPass(0);
-		
-		// Optimization hint:
-		// Consider Graphics.DrawMeshNow
-
-		GL.Begin (GL.QUADS);
-		GL.Color(color);
-		GL.Vertex3 (position.x, position.y, 0);
-		GL.Vertex3 (position.x + position.width, position.y, 0);
-		GL.Vertex3 (position.x + position.width, position.y + position.height, 0);
-		GL.Vertex3 (position.x, position.y + position.height, 0);
-		GL.End ();
-	}
+//	void DrawRectangle (Rect position, Color color)
+//	{
+//		// We shouldn't draw until we are told to do so.
+//		if (Event.current.type != EventType.Repaint)
+//			return;
+//		
+//		// Please assign a material that is using position and color.
+//		if (Material == null) {
+//			Debug.LogError ("You have forgot to set a material.");
+//			return;
+//		}
+//		
+//		Material.SetPass(0);
+//		
+//		// Optimization hint:
+//		// Consider Graphics.DrawMeshNow
+//
+//		GL.Begin (GL.QUADS);
+//		GL.Color(color);
+//		GL.Vertex3 (position.x, position.y, 0);
+//		GL.Vertex3 (position.x + position.width, position.y, 0);
+//		GL.Vertex3 (position.x + position.width, position.y + position.height, 0);
+//		GL.Vertex3 (position.x, position.y + position.height, 0);
+//		GL.End ();
+//	}
 }

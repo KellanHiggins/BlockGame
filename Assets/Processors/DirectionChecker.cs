@@ -10,6 +10,8 @@ public class DirectionChecker : MonoBehaviour {
 		gameModel = FindObjectOfType<GameModel>();
 	}
 
+
+	// TODO: Simplify this into just one function for all directions
 	public int CheckRight(GameObject brick, GameObject[,] brickArray)
 	{
 		// Grab the brick's brickComponent
