@@ -46,10 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Components\AutoDestroyComponent.cs" />
      <Compile Include="Assets\Components\BrickComponent.cs" />
+     <Compile Include="Assets\Components\FadeInComponent.cs" />
+     <Compile Include="Assets\Processors\DestroyProcessor.cs" />
      <Compile Include="Assets\Processors\DirectionChecker.cs" />
      <Compile Include="Assets\Processors\MoveProcessor.cs" />
      <Compile Include="Assets\Processors\MoveSidesProcessor.cs" />
+     <Compile Include="Assets\Scripts\BlockType.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameModel.cs" />
      <Compile Include="Assets\Scripts\GameView.cs" />

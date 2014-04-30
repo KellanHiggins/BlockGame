@@ -16,6 +16,9 @@ public class GameModel : MonoBehaviour
 	// offset Play Area Width and Height.
 
 	public GameObject BrickPrefab;
+	public GameObject DestroyRow;
+	public GameObject DestroyColumn;
+
 	public GameObject[,] BrickArray;
 	public GameObject CurrentActiveBrick;
 
@@ -25,57 +28,25 @@ public class GameModel : MonoBehaviour
 	{
 		BrickArray = new GameObject[PlayAreaWidth,PlayAreaHeight];
 		Processors = GameObject.Find("Processors");
-		AddNewPlayBrick();
+		StartCoroutine(AddNewPlayBrick());
 
-		PlayAreaEdges = new PlayAreaEdges();
-		if(PlayAreaWidth % 2 == 0 && PlayAreaHeight %2 == 0)
+		if(PlayAreaWidth % 2 != 0 || PlayAreaHeight %2 != 0)
 		{
-			// Sets the vector cordinates for the edge of the play area.
-			PlayAreaEdges.TopPlayAreaEdge = PlayAreaHeight/2;
-			PlayAreaEdges.BottomPlayAreaEdge = -(PlayAreaHeight/2);
-			PlayAreaEdges.RightPlayAreaEdge = (PlayAreaWidth/2);
-			PlayAreaEdges.LeftPlayAreaEdge = -(PlayAreaWidth/2);
-		}
-		else
 			Debug.LogError("the area is not even");
-		//		
-		//		PositionAndBrickType = new Dictionary<int, Brick>();
-		//		BrickList = new List<Brick>();
+
+		}
 	}
 
-	void Update()
+	public IEnumerator AddNewPlayBrick ()
 	{
-//		for(int x = 0; x < PlayAreaWidth; x++)
-//		{
-//			for(int y = 0; y < PlayAreaHeight; y++)
-//			{
-//				if(CurrentActiveBrick == BrickArray[x,y])
-//				{
-//					CurrentActiveBrick.gameObject.renderer.material.color = Color.red;
-//				}
-//				else
-//				{
-//					if(BrickArray[x,y] != null)
-//					{
-//						BrickArray[x,y].gameObject.renderer.material.color = Color.gray;
-//					}
-//				}
-//			}
-//		}
-	}
+		yield return new WaitForEndOfFrame();
 
-	public bool AddNewPlayBrick ()
-	{
 		Vector2 playAreaCenter = new Vector2(PlayAreaWidth/2, PlayAreaHeight/2);
 
 		float x = (float)Random.Range(-CreationSpread, CreationSpread);
 		float y = (float)Random.Range(-CreationSpread, CreationSpread);
 
-		if(AddBrick(new Vector2(playAreaCenter.x + x, playAreaCenter.y + y)))
-		{
-			return true;
-		}
-		return false;
+		if(AddBrick(new Vector2(playAreaCenter.x + x, playAreaCenter.y + y)));
 	}
 
 	public bool AddBrick(Vector2 location)
@@ -133,15 +104,17 @@ public class GameModel : MonoBehaviour
 			break;
 		}
 
-		int i = 0;
-		while(AddNewPlayBrick() != true)
-		{
-			AddNewPlayBrick();
-			i++;
-			
-			if(i >= 256)
-				break;
-		}
+		StartCoroutine(AddNewPlayBrick());
+
+//		int i = 0;
+//		while(AddNewPlayBrick() != true)
+//		{
+//			AddNewPlayBrick();
+//			i++;
+//			
+//			if(i >= 256)
+//				break;
+//		}
 		return true;
 	}
 

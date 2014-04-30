@@ -14,11 +14,19 @@ public class BrickComponent : MonoBehaviour
 	private Vector2 endPos;
 	private float timer = 0f;
 
+	[SerializeField]
+	private Material upDown;
+
+	[SerializeField]
+	private Material leftRight;
+
+
 	void Awake()
 	{
 		int r = Random.Range(0,2);
 //		Debug.Log(r);
 		Shade = (Shade)r;
+		BrickGroup = -1;
 	}
 
 	public BrickComponent()
@@ -31,40 +39,9 @@ public class BrickComponent : MonoBehaviour
 	{
 		AutoUpdateLocation();
 
-		if(Shade == Shade.Bright)
-			gameObject.renderer.material.color = Color.white;
-		else
-			gameObject.renderer.material.color = Color.gray;
+//		SetColours();
+		SetDirections();
 
-		switch(Side)
-		{
-		case Sides.Right:
-			if(Shade == Shade.Bright)
-				gameObject.renderer.material.color = Color.blue + new Color(0.2f, 0.2f, 0.2f);
-			else
-				gameObject.renderer.material.color = Color.blue;
-			break;
-		case Sides.Left:
-			if(Shade == Shade.Bright)
-				gameObject.renderer.material.color = Color.cyan + new Color(0.2f, 0.2f, 0.2f);
-			else
-				gameObject.renderer.material.color = Color.cyan;
-			break;
-		case Sides.Top:
-			if(Shade == Shade.Bright)
-				gameObject.renderer.material.color = Color.yellow + new Color(0.2f, 0.2f, 0.2f);
-			else
-				gameObject.renderer.material.color = Color.yellow;
-			break;
-		case Sides.Bottom:
-			if(Shade == Shade.Bright)
-				gameObject.renderer.material.color = Color.black + new Color(0.2f, 0.2f, 0.2f);
-			else
-				gameObject.renderer.material.color = Color.black;
-			break;
-		default:
-			break;
-		}
 	}
 
 	private void AutoUpdateLocation ()
@@ -97,6 +74,58 @@ public class BrickComponent : MonoBehaviour
 				moving = false;
 				timer = 0f;
 			}
+		}
+	}
+
+	void SetColours ()
+	{
+		if(Shade == Shade.Bright)
+			gameObject.renderer.material.color = Color.white;
+		else
+			gameObject.renderer.material.color = Color.gray;
+		
+		switch(Side)
+		{
+		case Sides.Right:
+			if(Shade == Shade.Bright)
+				gameObject.renderer.material.color = Color.blue + new Color(0.2f, 0.2f, 0.2f);
+			else
+				gameObject.renderer.material.color = Color.blue;
+			break;
+		case Sides.Left:
+			if(Shade == Shade.Bright)
+				gameObject.renderer.material.color = Color.cyan + new Color(0.2f, 0.2f, 0.2f);
+			else
+				gameObject.renderer.material.color = Color.cyan;
+			break;
+		case Sides.Top:
+			if(Shade == Shade.Bright)
+				gameObject.renderer.material.color = Color.yellow + new Color(0.2f, 0.2f, 0.2f);
+			else
+				gameObject.renderer.material.color = Color.yellow;
+			break;
+		case Sides.Bottom:
+			if(Shade == Shade.Bright)
+				gameObject.renderer.material.color = Color.black + new Color(0.2f, 0.2f, 0.2f);
+			else
+				gameObject.renderer.material.color = Color.black;
+			break;
+		default:
+			break;
+		}
+	}
+
+	void SetDirections ()
+	{
+		if(Side == Sides.Right || Side == Sides.Left)
+		{
+			BrickGroup = 0;
+			gameObject.renderer.material = upDown;
+		}
+		else if (Side == Sides.Top || Side == Sides.Bottom)
+		{
+			BrickGroup = 1;
+			gameObject.renderer.material = leftRight;
 		}
 	}
 }
