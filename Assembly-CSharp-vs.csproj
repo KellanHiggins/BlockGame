@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Components\AutoDestroyComponent.cs" />
      <Compile Include="Assets\Components\BrickComponent.cs" />
+     <Compile Include="Assets\Components\BrickTypeComponent.cs" />
      <Compile Include="Assets\Components\FadeInComponent.cs" />
      <Compile Include="Assets\Processors\DestroyProcessor.cs" />
      <Compile Include="Assets\Processors\DirectionChecker.cs" />

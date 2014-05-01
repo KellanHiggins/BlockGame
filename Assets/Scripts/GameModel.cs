@@ -28,7 +28,8 @@ public class GameModel : MonoBehaviour
 	{
 		BrickArray = new GameObject[PlayAreaWidth,PlayAreaHeight];
 		Processors = GameObject.Find("Processors");
-		StartCoroutine(AddNewPlayBrick());
+		//StartCoroutine(AddNewPlayBrick());
+		StartCoroutine(SpawnNewBlock());
 
 		if(PlayAreaWidth % 2 != 0 || PlayAreaHeight %2 != 0)
 		{
@@ -37,17 +38,17 @@ public class GameModel : MonoBehaviour
 		}
 	}
 
-	public IEnumerator AddNewPlayBrick ()
-	{
-		yield return new WaitForEndOfFrame();
-
-		Vector2 playAreaCenter = new Vector2(PlayAreaWidth/2, PlayAreaHeight/2);
-
-		float x = (float)Random.Range(-CreationSpread, CreationSpread);
-		float y = (float)Random.Range(-CreationSpread, CreationSpread);
-
-		if(AddBrick(new Vector2(playAreaCenter.x + x, playAreaCenter.y + y)));
-	}
+//	public IEnumerator AddNewPlayBrick ()
+//	{
+//		yield return new WaitForEndOfFrame();
+//
+//		Vector2 playAreaCenter = new Vector2(PlayAreaWidth/2, PlayAreaHeight/2);
+//
+//		float x = (float)Random.Range(-CreationSpread, CreationSpread);
+//		float y = (float)Random.Range(-CreationSpread, CreationSpread);
+//
+//		AddBrick(new Vector2(playAreaCenter.x + x, playAreaCenter.y + y)));
+//	}
 
 	public bool AddBrick(Vector2 location)
 	{
@@ -72,39 +73,25 @@ public class GameModel : MonoBehaviour
 
 	public bool MoveNewBrick(MoveDirection moveDir)
 	{
-		DirectionChecker directionChecker = Processors.GetComponent<DirectionChecker>();
-
 		switch (moveDir)
 		{
 		case MoveDirection.Right:
-			if(directionChecker.CheckRight(CurrentActiveBrick, BrickArray) > 0)
-			{
-				MoveBrick(CurrentActiveBrick, MoveDirection.Right, true);
-			}
+			MoveBrick(CurrentActiveBrick, MoveDirection.Right, true);
 			break;
 		case MoveDirection.Left:
-			if(directionChecker.CheckLeft(CurrentActiveBrick, BrickArray) > 0)
-			{
-				MoveBrick(CurrentActiveBrick, MoveDirection.Left, true);
-			}
+			MoveBrick(CurrentActiveBrick, MoveDirection.Left, true);
 			break;
 		case MoveDirection.Up:
-			if(directionChecker.CheckUp(CurrentActiveBrick, BrickArray) > 0)
-			{
-				MoveBrick(CurrentActiveBrick, MoveDirection.Up, true);
-			}
+			MoveBrick(CurrentActiveBrick, MoveDirection.Up, true);
 			break;
 		case MoveDirection.Down:
-			if(directionChecker.CheckDown(CurrentActiveBrick, BrickArray) > 0)
-			{
-				MoveBrick(CurrentActiveBrick, MoveDirection.Down, true);
-			}
+			MoveBrick(CurrentActiveBrick, MoveDirection.Down, true);
 			break;
 		default:
 			break;
 		}
 
-		StartCoroutine(AddNewPlayBrick());
+		StartCoroutine(SpawnNewBlock());
 
 //		int i = 0;
 //		while(AddNewPlayBrick() != true)
@@ -139,5 +126,49 @@ public class GameModel : MonoBehaviour
 			return false;
 		}
 		return true;
+	}
+
+	private IEnumerator SpawnNewBlock()
+	{
+		yield return new WaitForEndOfFrame();
+		SpawnNewBlockRandomlyOnGrid();
+	}
+
+	private void SpawnNewBlockRandomlyOnGrid()
+	{
+		List<Vector2> openSlots = new List<Vector2>();
+
+		// Figure out the play area we are going to check out. In this case its going to be the entire grid.
+
+		// TODO: Add it so the system spawns in the middle of the grid.
+
+		// Loop through the entire brick array to find all free Vector2s.
+		for(int y = 0; y <= BrickArray.GetUpperBound(1); y++)
+		{
+			for(int x = 0; x <= BrickArray.GetUpperBound(0); x++)
+			{
+				if(BrickArray[x,y] == null)
+				{
+					Vector2 freeSpace = new Vector2(x, y);
+					// Add each free area to the list
+					openSlots.Add(freeSpace);
+					continue;
+				}
+			}
+		}
+
+		// Check to see if the list is empty, if empty return a end game
+		if(openSlots.Count == 0)
+		{
+			// TODO: Add in a game ending screen here.
+			return;
+		}
+		else
+		{
+			// Figure out a random number for the spawn point
+			int randomIndex = Random.Range(0, openSlots.Count);
+			// TODO: Check to make sure the last spot is being counted
+			AddBrick(openSlots[randomIndex]);
+		}
 	}
 }

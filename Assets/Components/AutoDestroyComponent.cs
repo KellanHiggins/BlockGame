@@ -6,6 +6,6 @@ public class AutoDestroyComponent : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		Destroy(gameObject, 0.14f);
+		Destroy(gameObject, 2f);
 	}
 }

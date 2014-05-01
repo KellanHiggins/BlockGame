@@ -41,12 +41,13 @@ public class DestroyProcessor : MonoBehaviour
 				{
 					continue;
 				}
-				if(gameModel.BrickArray[x,y].GetComponent<BrickComponent>().BrickGroup ==
-				   gameModel.BrickArray[x + 1,y].GetComponent<BrickComponent>().BrickGroup)
+				if(gameModel.BrickArray[x,y].GetComponent<BrickTypeComponent>().BrickGroup ==
+				   gameModel.BrickArray[x + 1,y].GetComponent<BrickTypeComponent>().BrickGroup)
 				{
-					Debug.Log(destroyNumber);
 					destroyNumber += 1;
 				}
+				else 
+					destroyNumber = 0;
 			}
 			destroyNumber = 0;
 		}
@@ -61,9 +62,9 @@ public class DestroyProcessor : MonoBehaviour
 			for(int x = 0; x <= gameModel.BrickArray.GetUpperBound(0); x++)
 			{
 				//if(gameModel.BrickArray[x,row] != gameModel.CurrentActiveBrick)
-					Destroy(gameModel.BrickArray[x,row]);
+					Destroy(gameModel.BrickArray[x,row], 2f);
 			}
-			Instantiate(gameModel.DestroyRow, new Vector3((float)gameModel.PlayAreaWidth / 2, row, -2f), Quaternion.identity);
+			Instantiate(gameModel.DestroyRow, new Vector3((float)gameModel.PlayAreaWidth / 2, row, 2f), Quaternion.identity);
 		}
 	}
 
@@ -90,11 +91,13 @@ public class DestroyProcessor : MonoBehaviour
 				{
 					continue;
 				}
-				if(gameModel.BrickArray[x,y].GetComponent<BrickComponent>().BrickGroup ==
-				   gameModel.BrickArray[x,y + 1].GetComponent<BrickComponent>().BrickGroup)
+				if(gameModel.BrickArray[x,y].GetComponent<BrickTypeComponent>().BrickGroup ==
+				   gameModel.BrickArray[x,y + 1].GetComponent<BrickTypeComponent>().BrickGroup)
 				{
 					destroyNumber += 1;
 				}
+				else 
+					destroyNumber = 0;
 			}
 			destroyNumber = 0;
 		}
@@ -109,9 +112,9 @@ public class DestroyProcessor : MonoBehaviour
 			for(int y = 0; y <= gameModel.BrickArray.GetUpperBound(1); y++)
 			{
 				//if(gameModel.BrickArray[column,y] != gameModel.CurrentActiveBrick)
-					Destroy(gameModel.BrickArray[column,y]);
+					Destroy(gameModel.BrickArray[column,y], 2f);
 			}
-			Instantiate(gameModel.DestroyColumn, new Vector3(column, (float)gameModel.PlayAreaHeight / 2, -2f), Quaternion.identity);
+			Instantiate(gameModel.DestroyColumn, new Vector3(column, (float)gameModel.PlayAreaHeight / 2, 2f), Quaternion.identity);
 		}
 	}
 }

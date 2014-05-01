@@ -24,9 +24,16 @@ public class MoveProcessor : MonoBehaviour
 			//UpdateActualLocation(brickComponent.gameObject);
 			if(updateSide == true)
 			{
-				brickComponent.Side = Sides.Right;
+				brick.GetComponent<BrickTypeComponent>().Side = Sides.Right;
 			}
 			// Update the brick array so that everything is aligned.
+
+			UpdateBrickArray();
+			return true;
+		}
+		else if(updateSide == true && directionChecker.CheckRight(brick, gameModel.BrickArray) == 0)
+		{
+			brick.GetComponent<BrickTypeComponent>().Side = Sides.Right;
 			UpdateBrickArray();
 			return true;
 		}
@@ -42,13 +49,20 @@ public class MoveProcessor : MonoBehaviour
 			//UpdateActualLocation(brickComponent.gameObject);
 			if(updateSide == true)
 			{
-				brickComponent.Side = Sides.Left;
+				brick.GetComponent<BrickTypeComponent>().Side = Sides.Left;
 			}
 			// Update the brick array so that everything is aligned.
+
 			UpdateBrickArray();
 			return true;
 		}
-		return false;
+		else if(updateSide == true && directionChecker.CheckLeft(brick, gameModel.BrickArray) == 0)
+		{
+			brick.GetComponent<BrickTypeComponent>().Side = Sides.Left;
+			UpdateBrickArray();
+			return true;
+		}
+		return false;	
 	}
 
 	public bool MoveUp(GameObject brick, bool updateSide)
@@ -60,11 +74,19 @@ public class MoveProcessor : MonoBehaviour
 			//UpdateActualLocation(brickComponent.gameObject);
 			if(updateSide == true)
 			{
-				brickComponent.Side = Sides.Top;
+				brick.GetComponent<BrickTypeComponent>().Side = Sides.Top;
 			}
 			// Update the brick array so that everything is aligned.
+
 			UpdateBrickArray();
 			return true;
+		}
+		else if(updateSide == true && directionChecker.CheckUp(brick, gameModel.BrickArray) == 0)
+		{
+			brick.GetComponent<BrickTypeComponent>().Side =  Sides.Top;
+			UpdateBrickArray();
+			return true;
+			
 		}
 		return false;
 	}
@@ -78,9 +100,16 @@ public class MoveProcessor : MonoBehaviour
 			//UpdateActualLocation(brickComponent.gameObject);
 			if(updateSide == true)
 			{
-				brickComponent.Side = Sides.Bottom;
+				brick.GetComponent<BrickTypeComponent>().Side = Sides.Bottom;
 			}
 			// Update the brick array so that everything is aligned.
+
+			UpdateBrickArray();
+			return true;
+		}
+		else if(updateSide == true && directionChecker.CheckDown(brick, gameModel.BrickArray) == 0)
+		{
+			brick.GetComponent<BrickTypeComponent>().Side = Sides.Bottom;
 			UpdateBrickArray();
 			return true;
 		}

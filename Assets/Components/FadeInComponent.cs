@@ -1,18 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FadeInComponent : MonoBehaviour {
+public class FadeInComponent : MonoBehaviour 
+{
+	// This is used to make the row destroyer look cool and fancy when it comes in
 
-	float Timer = 0;
-	// Use this for initialization
-	void Start () 
-	{
-
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
 }

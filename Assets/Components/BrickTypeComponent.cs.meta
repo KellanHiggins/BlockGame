@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2268878bd275b479fadc5ea73fbbdff1
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - GroupZeroLeftRight: {fileID: 2100000, guid: e9c6d8087264644bdbb8fe37edc0d944,
+      type: 2}
+  - GroupZeroUpDown: {fileID: 2100000, guid: 9d3101435d1674d4ba2c0fe6e049d813, type: 2}
+  - GroupOneLeftRight: {fileID: 2100000, guid: a7e02c34959484a74bdd3c475aa80c60, type: 2}
+  - GroupOneUpDown: {fileID: 2100000, guid: 8ad252f375e094164865c4c8d4c1b44f, type: 2}
+  - GroupTwoLeftRight: {fileID: 2100000, guid: 74703ca266a18428bafaa9a5177f558d, type: 2}
+  - GroupTwoUpDown: {fileID: 2100000, guid: 2a953985e7c1845f99ff0f3ac49d9179, type: 2}
+  - GroupThreeLeftRight: {fileID: 2100000, guid: c7f5a62e1fd324898a77a287ec1c9091,
+      type: 2}
+  - GroupThreeUpDown: {fileID: 2100000, guid: 27a2f5cad30a9470aa8de2db2fd9a117, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

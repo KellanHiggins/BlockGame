@@ -65,11 +65,11 @@ public class MoveSidesProcessor : MonoBehaviour
 		int brickArrayHeight = brickArray.GetUpperBound(1) + 1;
 		int newX;
 		int newY;
-		int xModifier = 0;
-		int yModifier = 0;
+//		int xModifier = 0;
+//		int yModifier = 0;
 		int startX = 0;
 		int startY = 0;
-		bool movingUpAndDown = false;
+//		bool movingUpAndDown = false;
 
 		newX = startX;
 		newY = startY;
@@ -91,11 +91,11 @@ public class MoveSidesProcessor : MonoBehaviour
 					}
 					else if(brickArray[x,y] != null)
 					{
-						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
-						if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
+						BrickTypeComponent brickTypeComponet = brickArray[x, y].GetComponent<BrickTypeComponent>();
+						if(brickTypeComponet.Side == Sides.Top || brickTypeComponet.Side == Sides.Bottom)
 						{
 						}
-						else if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
+						else if(brickTypeComponet.Side == Sides.Left || brickTypeComponet.Side == Sides.Right)
 						{
 							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
 						}
@@ -122,12 +122,12 @@ public class MoveSidesProcessor : MonoBehaviour
 					}
 					else if(brickArray[x,y] != null)
 					{
-						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
-						if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
+						BrickTypeComponent brickTypeComponet = brickArray[x, y].GetComponent<BrickTypeComponent>();
+						if(brickTypeComponet.Side == Sides.Top || brickTypeComponet.Side == Sides.Bottom)
 						{
 							
 						}
-						else if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
+						else if(brickTypeComponet.Side == Sides.Left || brickTypeComponet.Side == Sides.Right)
 						{
 							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
 						}
@@ -154,12 +154,12 @@ public class MoveSidesProcessor : MonoBehaviour
 					}
 					else if(brickArray[x,y] != null)
 					{
-						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
-						if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
+						BrickTypeComponent brickTypeComponet = brickArray[x, y].GetComponent<BrickTypeComponent>();
+						if(brickTypeComponet.Side == Sides.Left || brickTypeComponet.Side == Sides.Right)
 						{
 							
 						}
-						else if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
+						else if(brickTypeComponet.Side == Sides.Top || brickTypeComponet.Side == Sides.Bottom)
 						{
 							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
 						}
@@ -186,12 +186,12 @@ public class MoveSidesProcessor : MonoBehaviour
 					}
 					else if(brickArray[x,y] != null)
 					{
-						BrickComponent brickComponet = brickArray[x, y].GetComponent<BrickComponent>();
-						if(brickComponet.Side == Sides.Left || brickComponet.Side == Sides.Right)
+						BrickTypeComponent brickTypeComponet = brickArray[x, y].GetComponent<BrickTypeComponent>();
+						if(brickTypeComponet.Side == Sides.Left || brickTypeComponet.Side == Sides.Right)
 						{
 							
 						}
-						else if(brickComponet.Side == Sides.Top || brickComponet.Side == Sides.Bottom)
+						else if(brickTypeComponet.Side == Sides.Top || brickTypeComponet.Side == Sides.Bottom)
 						{
 							gameModel.MoveBrick(brickArray[x,y], moveDir, false);
 
